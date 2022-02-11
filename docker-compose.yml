@@ -1,0 +1,30 @@
+
+version: '2'
+services:
+  db:
+    image: postgres:10.3-alpine
+    restart: always
+    environment:
+      POSTGRES_ROOT_PASSWORD: password
+      POSTGRES_DATABASE: verify-self-service_development
+      POSTGRES_USER: verify-self-service
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ".:/verify-self-service"
+    ports:
+      - "80:3000"
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      DB_USER: verify-self-service
+      DB_NAME: verify-self-service_development
+      DB_PASSWORD: password
+      DB_HOST: db
+

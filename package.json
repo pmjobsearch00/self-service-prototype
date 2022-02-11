@@ -1,0 +1,7 @@
+{
+  "name": "verify-self-service",
+  "private": true,
+  "dependencies": {
+    "yarn": "^1.13.0"
+  }
+}
